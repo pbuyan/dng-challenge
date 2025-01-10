@@ -1,4 +1,4 @@
-import { useDnD } from "../app/workflow/DnDContext";
+import { useDnD } from "../context/dnd-context";
 import {
 	Sidebar,
 	SidebarContent,
@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/sidebar";
 
 export default function DnDAside() {
-	// Assuming useDnD returns a tuple with the current type and a setter function
 	const [, setType] = useDnD();
 
 	const onDragStart = (

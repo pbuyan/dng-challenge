@@ -9,10 +9,8 @@ import {
 	type SetStateAction,
 } from "react";
 
-// Define the type for the context value
 type DnDContextType = [string | null, Dispatch<SetStateAction<string | null>>];
 
-// Create the context with a default value
 const DnDContext = createContext<DnDContextType | undefined>(undefined);
 
 export const DnDProvider = ({ children }: { children: React.ReactNode }) => {

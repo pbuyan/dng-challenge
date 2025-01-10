@@ -11,5 +11,5 @@ interface UserData {
 export async function signUp(userData: UserData) {
 	console.log("userData: ", userData);
 	await new Promise((resolve) => setTimeout(resolve, 1000));
-	return { success: false };
+	return { success: true };
 }

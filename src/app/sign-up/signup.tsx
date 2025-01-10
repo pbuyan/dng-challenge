@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { signUp } from "./actions";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 type UserAccountFormInputs = {
 	firstName: string;
@@ -39,6 +40,7 @@ const userAccountSchema = z
 	});
 
 export function SignUp() {
+	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
@@ -52,9 +54,13 @@ export function SignUp() {
 		const result = await signUp(data);
 
 		if (result.success) {
-			toast.success("Account created", {
+			toast.success("Account created. You will be redirected shortly", {
 				position: "bottom-left",
 			});
+
+			setTimeout(() => {
+				router.push("/workflow");
+			}, 2000);
 			return;
 		}
 

@@ -2,7 +2,7 @@
 
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import DnDAside from "@/components/dnd-side-bar";
-import { DnDProvider } from "./DnDContext";
+import { DnDProvider } from "../../context/dnd-context";
 import { ReactFlowProvider } from "@xyflow/react";
 import Header from "@/components/header";
 
