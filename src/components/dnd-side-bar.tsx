@@ -1,4 +1,4 @@
-import { useDnD } from "./DnDContext";
+import { useDnD } from "../app/workflow/DnDContext";
 import {
 	Sidebar,
 	SidebarContent,
@@ -21,8 +21,9 @@ export default function DnDAside() {
 
 	return (
 		<Sidebar>
-			<SidebarHeader>
-				You can drag these nodes to the pane on the right.
+			<SidebarHeader className="font-semibold mt-8 mb-5">
+				Available nodes
+				<hr />
 			</SidebarHeader>
 			<SidebarContent>
 				<SidebarGroup className="gap-2">
