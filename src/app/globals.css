@@ -14,8 +14,8 @@ body {
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 224 76% 48%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
@@ -24,7 +24,9 @@ body {
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
+    --border: 0, 0%, 85%;
+    --input: 240 5.9% 90%;
+    --input-hover: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
     --chart-1: 12 76% 61%;
@@ -33,6 +35,33 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+  }
+  .palette {
+    --background: var(--background);
+    --foreground: var(--foreground);
+    --card: var(--card);
+    --card-foreground: var(--card-foreground);
+    --popover: var(--popover);
+    --popover-foreground: var(--popover-foreground);
+    --primary: var(--primary);
+    --primary-foreground: var(--primary-foreground);
+    --secondary: var(--secondary);
+    --secondary-foreground: var(--secondary-foreground);
+    --muted: var(--muted);
+    --muted-foreground: var(--muted-foreground);
+    --accent: var(--accent);
+    --accent-foreground: var(--accent-foreground);
+    --destructive: var(--destructive);
+    --destructive-foreground: var(--destructive-foreground);
+    --border: var(--border);
+    --input: #d9d9d9;
+    --input-hover: #B0B0B0;
+    --input-focus: #1C4ED8;
+    --ring: var(--ring);
+    --chart-1: var(--chart-1);
+
+    --placeholder: #8C8E90;
+    --helper: #6B6B6B;
   }
   .dark {
     --background: 240 10% 3.9%;
