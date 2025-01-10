@@ -1,19 +1,9 @@
 "use client";
 
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
 import DnDAside from "./DnDSideBar";
-import { DnDProvider, useDnD } from "./DnDContext";
-import {
-	ReactFlow,
-	ReactFlowProvider,
-	addEdge,
-	useNodesState,
-	useEdgesState,
-	Controls,
-	useReactFlow,
-	Background,
-} from "@xyflow/react";
+import { DnDProvider } from "./DnDContext";
+import { ReactFlowProvider } from "@xyflow/react";
 import Header from "@/components/header";
 
 export default function WorkflowLayout({
@@ -25,9 +15,7 @@ export default function WorkflowLayout({
 			<SidebarProvider>
 				<ReactFlowProvider>
 					<DnDProvider>
-						<AppSidebar>
-							<DnDAside />
-						</AppSidebar>
+						<DnDAside />
 						<main className="w-full">
 							<SidebarTrigger />
 							{children}

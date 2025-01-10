@@ -15,7 +15,7 @@ import {
 
 import "@xyflow/react/dist/style.css";
 
-import { initialNodes, nodeTypes } from "./nodes";
+import { type AppNode, initialNodes, nodeTypes } from "./nodes";
 import { initialEdges, edgeTypes } from "./edges";
 import { useDnD } from "./DnDContext";
 
@@ -23,55 +23,65 @@ let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 export default function Workflow() {
+	// State management for nodes and edges
 	const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
 	const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+	// Callback for when a connection is made between nodes
 	const onConnect: OnConnect = useCallback(
-		(connection) => setEdges((edges) => addEdge(connection, edges)),
+		(connection) => setEdges((eds) => addEdge(connection, eds)),
 		[setEdges],
 	);
 
-	const reactFlowWrapper = useRef(null);
-	// const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-	// const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+	// Ref for the ReactFlow wrapper
+	const reactFlowWrapper = useRef<HTMLDivElement | null>(null);
+
+	// Accessing ReactFlow's internal methods
 	const { screenToFlowPosition } = useReactFlow();
+
+	// Drag-and-drop node type from context
 	const [type] = useDnD();
 
-	// const onConnect = useCallback(
-	// 	(params) => setEdges((eds) => addEdge(params, eds)),
-	// 	[],
-	// );
-
-	const onDragOver = useCallback((event) => {
+	// Handle drag over event
+	const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		event.dataTransfer.dropEffect = "move";
 	}, []);
 
+	// Handle drop event for adding nodes
 	const onDrop = useCallback(
-		(event) => {
+		(event: React.DragEvent<HTMLDivElement>) => {
 			event.preventDefault();
 
-			// check if the dropped element is valid
 			if (!type) {
 				return;
 			}
 
-			// project was renamed to screenToFlowPosition
-			// and you don't need to subtract the reactFlowBounds.left/top anymore
-			// details: https://reactflow.dev/whats-new/2023-11-10
+			// Ensure reactFlowWrapper is available
+			if (!reactFlowWrapper.current) {
+				console.error("ReactFlow wrapper is not available");
+				return;
+			}
+
+			const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
+
+			// Calculate flow position from screen position
 			const position = screenToFlowPosition({
-				x: event.clientX,
-				y: event.clientY,
+				x: event.clientX - reactFlowBounds.left,
+				y: event.clientY - reactFlowBounds.top,
 			});
-			const newNode = {
+
+			// Create a new node
+			const newNode: AppNode = {
 				id: getId(),
-				type,
+				type: type as "custom-node",
 				position,
 				data: { label: `${type} node` },
 			};
 
-			setNodes((nds) => nds.concat(newNode));
+			setNodes((nds) => [...nds, newNode]);
 		},
-		[screenToFlowPosition, type],
+		[screenToFlowPosition, type, setNodes],
 	);
 
 	return (

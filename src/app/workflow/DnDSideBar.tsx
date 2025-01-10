@@ -1,4 +1,3 @@
-import React from "react";
 import { useDnD } from "./DnDContext";
 import {
 	Sidebar,
@@ -9,9 +8,13 @@ import {
 } from "@/components/ui/sidebar";
 
 export default function DnDAside() {
-	const [_, setType] = useDnD();
+	// Assuming useDnD returns a tuple with the current type and a setter function
+	const [, setType] = useDnD();
 
-	const onDragStart = (event, nodeType) => {
+	const onDragStart = (
+		event: React.DragEvent<HTMLDivElement>,
+		nodeType: string,
+	) => {
 		setType(nodeType);
 		event.dataTransfer.effectAllowed = "move";
 	};
