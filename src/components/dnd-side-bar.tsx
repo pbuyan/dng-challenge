@@ -20,11 +20,14 @@ export default function DnDAside() {
 
 	return (
 		<Sidebar>
-			<SidebarHeader className="font-semibold mt-8 mb-5">
+			<SidebarHeader className="font-semibold mt-8 text-center">
 				Available nodes
-				<hr />
 			</SidebarHeader>
+			<hr />
 			<SidebarContent>
+				<p className="px-2 text-center mt-8 mb-4">
+					You can drag these nodes to the pane on the right.
+				</p>
 				<SidebarGroup className="gap-2">
 					<div
 						className="border py-2 px-4 bg-white"
