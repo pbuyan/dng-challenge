@@ -9,6 +9,7 @@ import { signUp } from "./actions";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type UserAccountFormInputs = {
 	firstName: string;
@@ -41,6 +42,7 @@ const userAccountSchema = z
 
 export function SignUp() {
 	const router = useRouter();
+	const [isSending, setIsSending] = useState(false);
 	const {
 		register,
 		handleSubmit,
@@ -51,22 +53,34 @@ export function SignUp() {
 
 	const onSubmit: SubmitHandler<UserAccountFormInputs> = async (data) => {
 		// Simulate user registration with a server action
-		const result = await signUp(data);
 
-		if (result.success) {
-			toast.success("Account created. You will be redirected shortly", {
+		setIsSending(true);
+
+		try {
+			const result = await signUp(data);
+
+			if (result.success) {
+				toast.success("Account created. You will be redirected shortly", {
+					position: "bottom-left",
+				});
+
+				setTimeout(() => {
+					router.push("/workflow");
+				}, 2000);
+				return;
+			}
+
+			toast.error("Something went wrong", {
 				position: "bottom-left",
 			});
-
-			setTimeout(() => {
-				router.push("/workflow");
-			}, 2000);
-			return;
+		} catch (error) {
+			console.error(error);
+			toast.error("An error occurred while creating the account", {
+				position: "bottom-left",
+			});
+		} finally {
+			setIsSending(false);
 		}
-
-		toast.error("Something went wrong", {
-			position: "bottom-left",
-		});
 	};
 
 	return (
@@ -129,7 +143,13 @@ export function SignUp() {
 						/>
 					</div>
 
-					<Button type="submit" size="lg" variant="default" className="w-full">
+					<Button
+						type="submit"
+						size="lg"
+						variant="default"
+						className="w-full"
+						disabled={isSending}
+					>
 						Create Account
 					</Button>
 				</form>
