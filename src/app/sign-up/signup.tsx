@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signUp } from "./actions";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 type UserAccountFormInputs = {
 	firstName: string;
@@ -122,12 +123,9 @@ export function SignUp() {
 						/>
 					</div>
 
-					<button
-						type="submit"
-						className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-					>
+					<Button type="submit" size="lg" variant="default" className="w-full">
 						Create Account
-					</button>
+					</Button>
 				</form>
 			</div>
 		</div>
