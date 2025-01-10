@@ -11,7 +11,14 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
 	(
-		{ className, type = "text", inputSize = "default", helper, ...props },
+		{
+			className,
+			type = "text",
+			inputSize = "default",
+			helper,
+			error,
+			...props
+		},
 		ref,
 	) => {
 		const sizeClasses = {
@@ -27,12 +34,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 					className={cn(
 						"flex px-3 w-full rounded-md border border-input bg-background focus:drop-shadow-[0px_0px_4px_rgba(147,197,253,1)] file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
 						sizeClasses[inputSize],
+						{ "border-[#FF3B3B] hover:border-[#ad2624]": error !== undefined },
 						className,
 					)}
 					ref={ref}
 					{...props}
 				/>
 				{helper && <p className="text-xs text-foreground-muted">{helper}</p>}
+				{error && <p className="text-xs text-[#FF3B3B]">{error}</p>}
 			</div>
 		);
 	},
